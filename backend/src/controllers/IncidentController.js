@@ -5,13 +5,14 @@ class IncidentController {
     const { id } = request.params;
     const { page = 1 } = request.query;
     const [count] = await database('incidents').count();
+    const pageLimit = 4;
 
     const incidents = id
       ? await database('incidents')
           .where('ong_id', id)
-          .join('ongs', 'ong_id', '=', 'incidents.ong_id')
-          .limit(5)
-          .offset((page - 1) * 5)
+          .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+          .limit(pageLimit)
+          .offset((page - 1) * pageLimit)
           .select([
             'incidents.*',
             'ongs.name',
@@ -21,9 +22,9 @@ class IncidentController {
             'ongs.uf',
           ])
       : await database('incidents')
-          .join('ongs', 'ong_id', '=', 'incidents.ong_id')
-          .limit(5)
-          .offset((page - 1) * 5)
+          .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+          .limit(pageLimit)
+          .offset((page - 1) * pageLimit)
           .select([
             'incidents.*',
             'ongs.name',
