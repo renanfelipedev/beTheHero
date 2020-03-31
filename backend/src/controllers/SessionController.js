@@ -1,6 +1,6 @@
-import database from '../database';
+const database = require('../database');
 
-class SessionController {
+module.exports = {
   async store(request, response) {
     const { id } = request.body;
 
@@ -15,7 +15,5 @@ class SessionController {
     }
 
     return response.json(ong);
-  }
-}
-
-export default new SessionController();
+  },
+};

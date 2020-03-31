@@ -1,8 +1,9 @@
-import express from 'express';
-import helmet from 'helmet';
-import cors from 'cors';
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+const { errors } = require('celebrate');
 
-import routes from './routes';
+const routes = require('./routes');
 
 class App {
   constructor() {
@@ -19,7 +20,8 @@ class App {
 
   routes() {
     this.server.use(routes);
+    this.server.use(errors());
   }
 }
 
-export default new App().server;
+module.exports = new App().server;

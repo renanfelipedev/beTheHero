@@ -1,6 +1,11 @@
-import knex from 'knex';
-import configuration from '../../knexfile';
+const knex = require('knex');
+const configuration = require('../../knexfile');
 
-const database = knex(configuration.development);
+const env =
+  process.env.NODE_ENV === 'test'
+    ? configuration.test
+    : configuration.development;
 
-export default database;
+const database = knex(env);
+
+module.exports = database;

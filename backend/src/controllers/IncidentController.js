@@ -1,6 +1,6 @@
-import database from '../database';
+const database = require('../database');
 
-class IncidentController {
+module.exports = {
   async index(request, response) {
     const { id } = request.params;
     const { page = 1 } = request.query;
@@ -37,7 +37,7 @@ class IncidentController {
     response.header('X-Total-Count', count['count(*)']);
 
     return response.json(incidents);
-  }
+  },
 
   async store(request, response) {
     const { LoggedOngId: ong_id } = request;
@@ -51,7 +51,7 @@ class IncidentController {
     });
 
     return response.json({ id });
-  }
+  },
 
   async delete(request, response) {
     const { LoggedOngId: ong_id } = request;
@@ -72,7 +72,5 @@ class IncidentController {
     await database('incidents').where('id', id).delete();
 
     return response.status(204).send();
-  }
-}
-
-export default new IncidentController();
+  },
+};

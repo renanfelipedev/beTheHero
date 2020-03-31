@@ -1,17 +1,17 @@
-import crypto from 'crypto';
-import database from '../database';
+const generateUniqueId = require('../utils/generateUniqueId');
+const database = require('../database');
 
-class OngController {
+module.exports = {
   async index(request, response) {
     const ongs = await database('ongs').select('*');
 
     return response.json(ongs);
-  }
+  },
 
   async store(request, response) {
     const { name, email, whatsapp, city, uf } = request.body;
 
-    const id = crypto.randomBytes(4).toString('HEX');
+    const id = generateUniqueId();
 
     await database('ongs').insert({
       id,
@@ -23,7 +23,5 @@ class OngController {
     });
 
     return response.json({ id });
-  }
-}
-
-export default new OngController();
+  },
+};

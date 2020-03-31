@@ -1,4 +1,4 @@
-export default async (request, response, next) => {
+module.exports = async (request, response, next) => {
   try {
     const authId = request.headers.authorization;
 

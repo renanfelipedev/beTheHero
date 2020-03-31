@@ -1,8 +1,16 @@
-import 'dotenv/config';
+require('dotenv/config');
+const { createServer } = require('http');
+const App = require('./app');
 
-import { createServer } from 'http';
-import App from './app';
+class Server {
+  constructor() {
+    this.webserver = createServer(App);
+    this.port = process.env.PORT || 3333;
+  }
 
-const server = createServer(App);
+  init() {
+    this.webserver.listen(this.port);
+  }
+}
 
-server.listen(process.env.PORT || 3333);
+new Server().init();

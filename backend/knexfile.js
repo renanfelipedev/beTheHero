@@ -12,6 +12,17 @@ module.exports = {
     useNullAsDefault: true,
   },
 
+  test: {
+    client: process.env.DB_CLIENT || 'sqlite',
+    connection: {
+      filename: `./src/database/test_db.sqlite`,
+    },
+    migrations: {
+      directory: './src/database/migrations',
+    },
+    useNullAsDefault: true,
+  },
+
   staging: {
     client: process.env.DB_CLIENT,
     connection: {
