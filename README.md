@@ -38,7 +38,7 @@ Neste repositório encontram-se as aplicações necessárias para executar a ver
 
 - [Backend](https://github.com/renanfelipedev/beTheHero/tree/master/backend) - Responsável pelas regras de negócio da aplicação.
 - [Frontend](https://github.com/renanfelipedev/beTheHero/tree/master/frontend) - Área de gerenciamento da aplicação (utilizada pelas ONGs cadastradas).
-- [Mobile]() - Aplicativo que conecta os Heróis dispostos a ajudar, com as Ongs.
+- [Mobile](https://github.com/renanfelipedev/beTheHero/tree/master/mobile) - Aplicativo que conecta os Heróis dispostos a ajudar, com as Ongs.
 
 ### Para contribuir faça um fork/clone do projeto
 
