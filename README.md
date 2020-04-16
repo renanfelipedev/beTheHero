@@ -48,17 +48,17 @@ Neste repositório encontram-se as aplicações necessárias para executar a ver
 
 Para seguir com o desenvolvimento, utilize os seguintes comandos:
 
-##### Backend 
+> #### Backend 
+> `yarn dev`
+>
+> #### Frontend 
+> `yarn start`
+>
+> #### Mobile 
+> `expo start`
 
-`yarn dev`
 
-##### Frontend 
 
-`yarn start`
-
-##### Mobile 
-
-`expo start`
 
 ## 📲 Contato
 
