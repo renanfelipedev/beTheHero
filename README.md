@@ -1,8 +1,8 @@
 # Be The Hero
 
-<h4 align="center">
+<p align="center">
   🚀 Aplicação desenvolvida durante a Semana Omnistack 11 da Rocketseat 🚀
-</h4>
+</p>
 
 
 
