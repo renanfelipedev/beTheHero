@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://github.com/renanfelipedev/beTheHero/blob/master/docs/assets/logo.png?raw=true" alt="Be The Hero" />
+  <a href="https://github.com/renanfelipedev/beTheHero">
+    <img src="https://github.com/renanfelipedev/beTheHero/blob/master/docs/assets/logo.png?raw=true" alt="Be The Hero" />
+  </a>
  </p>
 
 <p align="center">
