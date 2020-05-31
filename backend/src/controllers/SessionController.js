@@ -1,19 +1,30 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+const authConfig = require('../configs/auth');
 const database = require('../database');
+const AppError = require('../errors/AppError');
 
 module.exports = {
   async store(request, response) {
-    const { id } = request.body;
+    const { email, password } = request.body;
 
-    if (!id) {
-      return response.status(400).json({ error: 'Please inform your id. ' });
+    const checkEmailExists = await database('ongs')
+      .where('email', email)
+      .first();
+
+    if (!checkEmailExists) {
+      throw new AppError('Email ou Senha estão incorretos');
     }
 
-    const ong = await database('ongs').where('id', id).select('name').first();
-
-    if (!ong) {
-      return response.status(404).json({ error: 'Ong not found.' });
+    if (!(await bcrypt.compare(password, checkEmailExists.password))) {
+      throw new AppError('Email ou Senha estão incorretos');
     }
 
-    return response.json(ong);
+    const token = jwt.sign({ id: checkEmailExists.id }, authConfig.jwt.secret, {
+      expiresIn: authConfig.jwt.expiresIn,
+    });
+
+    return response.json({ ong: checkEmailExists, token });
   },
 };

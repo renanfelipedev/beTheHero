@@ -1,10 +1,10 @@
 require('dotenv/config');
 const { createServer } = require('http');
-const App = require('./app');
+const { server } = require('./app');
 
 class Server {
   constructor() {
-    this.webserver = createServer(App);
+    this.webserver = createServer(server);
     this.port = process.env.PORT || 3333;
   }
 

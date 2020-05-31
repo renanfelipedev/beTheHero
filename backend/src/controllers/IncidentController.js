@@ -1,4 +1,5 @@
 const database = require('../database');
+const AppError = require('../errors/AppError');
 
 module.exports = {
   async index(request, response) {
@@ -40,21 +41,21 @@ module.exports = {
   },
 
   async store(request, response) {
-    const { LoggedOngId: ong_id } = request;
+    const { id } = request.user;
     const { title, description, value } = request.body;
 
-    const [id] = await database('incidents').insert({
+    const incident = await database('incidents').insert({
       title,
       description,
       value,
-      ong_id,
+      ong_id: id,
     });
 
-    return response.json({ id });
+    return response.json(incident);
   },
 
   async delete(request, response) {
-    const { LoggedOngId: ong_id } = request;
+    const { id: ong_id } = request.user;
     const { id } = request.params;
 
     const incident = await database('incidents')
@@ -63,10 +64,11 @@ module.exports = {
       .first();
 
     if (!incident) {
-      return response.status(404).json({ error: 'Incident not exists.' });
+      throw new AppError('Este incidente não existe.');
     }
+
     if (incident.ong_id !== ong_id) {
-      return response.status(401).json({ error: 'Operation not permitted' });
+      throw new AppError('Operação não permitida.', 401);
     }
 
     await database('incidents').where('id', id).delete();
