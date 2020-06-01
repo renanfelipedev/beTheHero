@@ -25,6 +25,8 @@ module.exports = {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
+    checkEmailExists.password = undefined;
+
     return response.json({ ong: checkEmailExists, token });
   },
 };

@@ -6,7 +6,7 @@ const { errors } = require('celebrate');
 require('express-async-errors');
 
 const routes = require('./routes');
-const globalExceptionHandler = require('./middlewares/globalErrorHandler');
+const globalErrorHandler = require('./middlewares/globalErrorHandler');
 
 class App {
   constructor() {
@@ -28,7 +28,7 @@ class App {
   }
 
   exceptions() {
-    this.server.use(globalExceptionHandler);
+    this.server.use(globalErrorHandler);
   }
 }
 
