@@ -13,7 +13,7 @@ export default function NewIncident() {
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
 
-  const ongId = localStorage.getItem('ongId');
+  const token = localStorage.getItem('@BeTheHero:token');
 
   const history = useHistory();
 
@@ -28,7 +28,7 @@ export default function NewIncident() {
 
     try {
       await api.post('/incidents', data, {
-        headers: { Authorization: ongId },
+        headers: { Authorization: `Beared ${token}` },
       });
 
       history.push('/profile');

@@ -5,23 +5,24 @@ import { FiLogIn } from 'react-icons/fi';
 import logoImg from '../../assets/logo.svg';
 import heroesImg from '../../assets/heroes.png';
 
-import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import './styles.css';
 
 export default function Login() {
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory();
+  const { login } = useAuth();
 
   async function handleLogin(e) {
     e.preventDefault();
 
     try {
-      const response = await api.post('/sessions', { id });
-      localStorage.setItem('ongId', id);
-      localStorage.setItem('ongName', response.data.name);
+      await login({ email, password });
       history.push('/profile');
     } catch (error) {
+      console.log(error);
       alert('Falha ao realizar o login, tente novamente.');
     }
   }
@@ -34,10 +35,18 @@ export default function Login() {
         <form onSubmit={(e) => handleLogin(e)}>
           <h1>Faça seu logon</h1>
           <input
-            type="text"
-            placeholder="Sua ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            name="email"
+            type="email"
+            placeholder="Seu e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <input
+            type="password"
+            placeholder="Sua senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" className="button">
             Entrar

@@ -4,37 +4,42 @@ import { FiPower, FiTrash2 } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.svg';
 
+import { useAuth } from '../../hooks/auth';
+
 import api from '../../services/api';
 
 import './styles.css';
 
 export default function Profile() {
   const [incidents, setIncidents] = useState([]);
-
-  const ongName = localStorage.getItem('ongName');
-  const ongId = localStorage.getItem('ongId');
+  const { ong, logout } = useAuth();
 
   const history = useHistory();
+
+  const token = localStorage.getItem('@BeTheHero:token');
 
   useEffect(() => {
     async function fetchIncidents() {
       try {
-        const response = await api.get(`/ongs/${ongId}/incidents`, {
+        const response = await api.get(`/ongs/${ong.id}/incidents`, {
           headers: {
-            Authorization: ongId,
+            Authorization: `Bearer ${token}`,
           },
         });
-        const data = response.data;
+
+        const { data } = response;
 
         setIncidents(data);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     fetchIncidents();
-  }, [ongId]);
+  }, [ong, token]);
 
   function handleLogout() {
-    localStorage.clear();
+    logout();
     history.push('/');
   }
 
@@ -42,7 +47,7 @@ export default function Profile() {
     try {
       await api.delete(`/incidents/${id}`, {
         headers: {
-          Authorization: ongId,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -56,7 +61,7 @@ export default function Profile() {
     <div className="profile-container">
       <header>
         <img src={logoImg} alt="Be the hero logo" />
-        <span>Bem vindo, {ongName}</span>
+        <span>{`Bem vindo, ${ong.name}`}</span>
         <Link to="/incidents/new" className="button">
           Cadastrar novo caso
         </Link>
